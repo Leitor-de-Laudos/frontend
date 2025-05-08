@@ -1,9 +1,13 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { ContainerOptionsInfo, ContainerProfile, ProfileMain } from "./styles";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { InfoUserContext } from "@/contexts/InfoUserContext";
 
 
 export function ProfileInfo() {
+  const { profile } = useContext(InfoUserContext);
+
   return (
     <ContainerProfile>
       <ProfileMain>
@@ -11,7 +15,7 @@ export function ProfileInfo() {
         <div>
           <span><Icon icon="mynaui:pencil" width="16" height="16"/></span>
         </div>
-        <h2>Camila Queiroz</h2>
+        <h2>{profile.nome}</h2>
       </ProfileMain>
 
       <ContainerOptionsInfo>
