@@ -4,15 +4,17 @@ import { Home } from "./pages/Home";
 import { AuthLayout } from "./layouts/AuthLayout";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "@/pages/SignUp/index";
+import { ProfileInfo } from "./pages/ProfileInfo";
+import { ProfileEditInfo } from "./pages/ProfileEditInfo";
 
 export function Router() {
   return (
     <Routes>
         <Route path="/" element={<DefaultLayout />}>
             <Route index element={<Home />} />
-            {/* <Route path="/home" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/profile" element={<ProfileInfo />} />
+            <Route path="/profile/edit" element={<ProfileEditInfo />} />
+            {/*<Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} /> */}
         </Route>
         <Route path="/auth" element={<AuthLayout />}>

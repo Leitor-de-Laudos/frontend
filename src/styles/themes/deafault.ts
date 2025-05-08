@@ -10,6 +10,7 @@ export const defaultTheme = {
     'base-card': '#f3f2f2',
     'base-text': '#fafafa',
     white: '#FFF',
+    'white-purple': '#F3F3FD',
  
   
     'purple': '#8F87F1',

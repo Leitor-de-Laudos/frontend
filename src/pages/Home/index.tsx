@@ -1,10 +1,24 @@
-import { ContainerHome } from "./styles";
+import { MenuFunctionality } from "@/components/MenuFunctionality";
+import { ContainerHome, ContainerProfile} from "./styles";
+import { HistoricReminders } from "@/components/HistoricReminders";
 
 export function Home() {
   return (
     <ContainerHome>
-      <h1 style={{color: "#726CC0"}}>Home</h1>
-      <h2 style={{ fontFamily: "League Spartan, sans-serif", color: "blue", fontSize: "20px" }}>aaaaaa</h2>
+      <ContainerProfile>
+        <div>
+          <h1>Olá Bem Vindo(a)</h1>
+          <h2>Camila Queiroz</h2>
+        </div>
+
+        <button>
+          <img src="https://i.pinimg.com/474x/21/9e/ae/219eaea67aafa864db091919ce3f5d82.jpg" alt="" />
+        </button>
+      </ContainerProfile>
+ 
+      <MenuFunctionality />
+
+      <HistoricReminders />
     </ContainerHome>
   )
 }

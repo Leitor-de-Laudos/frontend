@@ -2,9 +2,11 @@ import { InputHTMLAttributes, useState } from "react"
 import { Icon } from "@iconify/react"
 import { ContainerInputPassword } from "./styles"
 
-interface InputPasswordProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface InputPasswordProps extends InputHTMLAttributes<HTMLInputElement> {
+  dark?: boolean;
+}
 
-export function InputPassword({ ...rest }: InputPasswordProps) {
+export function InputPassword({ dark = false, ...rest }: InputPasswordProps) {
   const [showPassword, setShowPassword] = useState(false)
 
   function togglePasswordVisibility() {
