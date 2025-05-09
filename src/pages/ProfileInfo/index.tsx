@@ -15,7 +15,7 @@ export function ProfileInfo() {
         <div>
           <span><Icon icon="mynaui:pencil" width="16" height="16"/></span>
         </div>
-        <h2>{profile.nome}</h2>
+        <h2>{profile.nome ?? "name user"}</h2>
       </ProfileMain>
 
       <ContainerOptionsInfo>

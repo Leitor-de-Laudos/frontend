@@ -11,4 +11,8 @@ export const  GlobalStyles = createGlobalStyle`
 
     font-size: 100%;
   }
+
+  html, body{
+    overflow-x: hidden;
+  }
 `;
