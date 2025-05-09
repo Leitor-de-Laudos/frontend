@@ -6,7 +6,7 @@ export function DefaultLayout() {
   return (
     <div>
       <LayoutContainer>
-      <ContainerRound/>
+        <ContainerRound/> 
         <Outlet/>
         <NavBarMenu />
       </LayoutContainer>

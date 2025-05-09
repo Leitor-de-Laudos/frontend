@@ -12,7 +12,7 @@ export function Home() {
       <ContainerProfile>
         <div>
           <h1>Olá Bem Vindo(a)</h1>
-          <h2>{profile.nome}</h2>
+          <h2>{profile.nome ?? "name user"}</h2>
         </div>
 
         <button>

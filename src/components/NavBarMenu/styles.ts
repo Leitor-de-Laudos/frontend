@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const ContainerNavBar = styled.nav`
   position: fixed;
   z-index: 999;
-  bottom: 120px;
+  bottom: 30px;
 
   background-color: ${({theme}) => theme.purple};
   width: 70%;
