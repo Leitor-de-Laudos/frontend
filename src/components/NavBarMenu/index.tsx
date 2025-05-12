@@ -1,27 +1,60 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { ContainerNavBar } from "./styles";
+import { useState } from "react";
+import { ContainerNavBar, NavButton } from "./styles";
+import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
-export function NavBarMenu(){
-  return(
-    <ContainerNavBar>
+export function NavBarMenu() {
+  const [active, setActive] = useState("home");
 
+  const handleClick = (name: string) => {
+    setActive(name);
+  };
+
+  return (
+    <ContainerNavBar>
       <div>
         <Link to="/">
-          <button><Icon icon="lucide:home" width="24" height="24"/></button>
+          <NavButton
+            $isActive={active === "home"}
+            onClick={() => handleClick("home")}
+          >
+            <Icon icon="lucide:home" width="24" height="24" />
+          </NavButton>
         </Link>
-        <button><Icon icon="material-symbols:inbox-outline-rounded" width="24" height="24"/></button>
+
+        <NavButton
+          $isActive={active === "inbox"}
+          onClick={() => handleClick("inbox")}
+        >
+          <Icon icon="material-symbols:inbox-outline-rounded" width="24" height="24" />
+        </NavButton>
       </div>
-      <button>
-        <Icon icon="streamline:scanner" width="28" height="28"/>
-      </button>
+
+      <NavButton
+        $isActive={active === "scanner"}
+        $isMain
+        onClick={() => handleClick("scanner")}
+      >
+        <Icon icon="streamline:scanner" width="28" height="28" />
+      </NavButton>
+
       <div>
-        <button><Icon icon="lsicon:calendar-outline" width="24" height="24"/></button>
+        <NavButton
+          $isActive={active === "calendar"}
+          onClick={() => handleClick("calendar")}
+        >
+          <Icon icon="lsicon:calendar-outline" width="24" height="24" />
+        </NavButton>
+
         <Link to="/profile">
-          <button><Icon icon="iconoir:profile-circle" width="24" height="24"/></button>
+          <NavButton
+            $isActive={active === "profile"}
+            onClick={() => handleClick("profile")}
+          >
+            <Icon icon="iconoir:profile-circle" width="24" height="24" />
+          </NavButton>
         </Link>
       </div>
-      
     </ContainerNavBar>
-  )
+  );
 }

@@ -77,11 +77,12 @@ export const ContainerOptionsInfo = styled.div`
       text-decoration: none;
       color: ${({theme}) => theme["base-title"]};
       font-size: 1.125rem;
+      font-weight: 500;
     }
 
     & > p{
       font-size: 1.125rem;
-      font-weight: 400;
+      font-weight: 500;
     }
   }
 `
