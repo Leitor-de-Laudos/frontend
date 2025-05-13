@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export const api =  axios.create({
-  baseURL: 'https://backendserviceuser.onrender.com',
+  baseURL: apiUrl,
 });
 
 // Adiciona o token em todas as requisições
