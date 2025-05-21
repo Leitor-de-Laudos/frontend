@@ -20,7 +20,7 @@ export function MenuFunctionality(){
         <p>Exames</p>
       </div>
       <div>
-        <Link to="/">
+        <Link to="/reminder">
           <Icon icon="solar:jar-of-pills-2-bold" width="54" height="54"/>
         </Link>
         <p>Medicações</p>
