@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { LayoutContainer } from "./styles";
+import { ContainerRound, LayoutContainer } from "./styles";
 import { NavBarMenu } from "@/components/NavBarMenu";
 
-
-export function DefaultLayout() {
+export function MainLayout() {
   return (
     <div>
       <LayoutContainer>
+        <ContainerRound/> 
         <Outlet/>
         <NavBarMenu />
       </LayoutContainer>
