@@ -41,7 +41,7 @@ export const ContainerNavBar = styled.nav`
   & > div{
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 50px;
 
     & > a > button{
       height: 40px;

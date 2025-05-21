@@ -10,7 +10,9 @@ export function NavBarMenu(){
         <Link to="/">
           <button><Icon icon="lucide:home" width="24" height="24"/></button>
         </Link>
+        <Link to="/reminder">
         <button><Icon icon="material-symbols:inbox-outline-rounded" width="24" height="24"/></button>
+        </Link>
       </div>
       <button>
         <Icon icon="streamline:scanner" width="28" height="28"/>
