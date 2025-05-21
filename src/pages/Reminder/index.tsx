@@ -25,17 +25,19 @@ export function Reminder(){
           diaSemana: "QUA",
           done: false,
           items: [
-            { text: "Enviar e-mail ao cliente", time: "09:00" },
-            { text: "Revisar contrato", time: "11:30" },
+            { text: "Vitamina D\n  1 Capsula125mg", time: "09:00" },
+            { text: "Mirtazapina\n  1 Comprimido 50mg", time: "11:30" },
           ],
         },
         {
           id: 2,
           dia: 22,
           diaSemana: "QUI",
-          done: true,
+          done: false,
           items: [
-            { text: "Pagar fatura do cartão", time: "14:00" },
+            { text: "Consulta | Checkup\n  Hosp. São Camilo", time: "08:30" },
+            { text: "Vitamina D\n  1 Capsula125mg", time: "09:00" },
+            { text: "Mirtazapina\n  1 Comprimido 50mg", time: "11:30" },
           ],
         },
       ]);

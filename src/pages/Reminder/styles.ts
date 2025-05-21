@@ -45,20 +45,21 @@ export const CartaoLembrete = styled.div`
 display: flex;
 align-items: flex-start;
 background-color: #DDDAFF;
-border-radius: 16px;
-padding: 16px;
+border-radius: 14px;
+padding: 38px;
 margin-bottom: 16px;
 `
+
 export const DataColuna = styled.div`
 display:flex;
 flex-direction: column;
 align-items: center;
-margin-right: 16px;
+margin-right: 26px;
 `
 
 export const CirculoData = styled.div`
-width: 48px;
-height: 48px;
+width: 68px;
+height: 68px;
 border-radius: 50%;
 display: flex;
 flex-direction: column;
@@ -102,7 +103,7 @@ export const ColunaDetalhes = styled.div`
   flex: 1;
   background: #726CC0;
   border-radius: 12px;
-  padding: 12px;
+  padding: 38px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -112,10 +113,13 @@ export const LinhaItens = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0.3rem;
 
   .text {
     color: #fff;
     font-size: 0.9rem;
+    padding-right: 5rem;
+    white-space: pre-wrap;
   }
   .time {
     color: #fff;
