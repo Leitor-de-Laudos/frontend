@@ -14,6 +14,7 @@ import { SummaryReader } from "./pages/SummaryReader";
 import { HistoricReaderReport } from "./pages/HistoricReaderReport";
 
 import { Reminder } from "./pages/Reminder";
+import { Archives } from "./pages/Archives";
 
 export function Router() {
   return (
@@ -32,6 +33,7 @@ export function Router() {
 
       <Route path="/" element={<NavBarLayout />}>
         <Route path="reminder" element={<Reminder />} />
+        <Route path="archives" element={<Archives />} />
       </Route>
 
       <Route path="/auth" element={<AuthLayout />}>
