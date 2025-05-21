@@ -4,6 +4,7 @@ import { Router } from "./Router"
 import { defaultTheme } from "./styles/themes/deafault"
 import { GlobalStyles } from "./styles/global"
 import { InfoUserProvider } from "./contexts/InfoUserContext"
+import { ReaderReportProvider } from "./contexts/ReaderReportContext"
 
 
 function App() {
@@ -12,7 +13,9 @@ function App() {
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
         <InfoUserProvider>
-          <Router/>
+          <ReaderReportProvider>
+            <Router/>
+          </ReaderReportProvider>
         </InfoUserProvider>
       </BrowserRouter>
       <GlobalStyles/>
