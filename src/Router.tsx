@@ -8,6 +8,7 @@ import { SignUp } from "@/pages/SignUp/index";
 import { ProfileInfo } from "./pages/ProfileInfo";
 import { ProfileEditInfo } from "./pages/ProfileEditInfo";
 import { Reminder } from "./pages/Reminder";
+import { Archives } from "./pages/Archives";
  // Importando o PrivateRoute
 
 export function Router() {
@@ -20,8 +21,8 @@ export function Router() {
             <Route path="/profile/edit" element={<ProfileEditInfo />} />
         </Route>
         <Route path="/" element={<NavBarLayout />}>
-            
             <Route path="/reminder" element={<Reminder/>}/>
+            <Route path="/archives" element={<Archives/>}/>
 
         </Route>
         <Route path="/auth" element={<AuthLayout />}>

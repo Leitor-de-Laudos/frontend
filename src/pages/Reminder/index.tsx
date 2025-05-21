@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { ContainerReminder, HeaderLembretes, BotaoIcone, CartaoLembrete, CirculoData, DataColuna, BotaoChecar, ColunaDetalhes, LinhaItens } from "./styles";
-//simulacao, trocar para backend
 
-
-                    // Tipagem dos lembretes
                         interface ReminderItem {
                             text: string;
                             time: string;
@@ -18,6 +15,8 @@ import { ContainerReminder, HeaderLembretes, BotaoIcone, CartaoLembrete, Circulo
                         }
                         
 export function Reminder(){
+
+    //simulacao, trocar para backend
     const [reminders, setReminders] = useState<ReminderData[]>([
         {
           id: 1,
