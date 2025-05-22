@@ -6,9 +6,8 @@ import { InfoUserContext } from "@/contexts/InfoUserContext";
 import { useContext, useState } from "react";
 
 export function ProfileEditInfo() {
-  const { profile } = useContext(InfoUserContext); // Supondo que o contexto tenha uma função updateProfile
+  const { profile, update } = useContext(InfoUserContext);
 
-  // Estado local para gerenciar os valores dos inputs
   const [formData, setFormData] = useState({
     nome: profile.nome || "",
     email: profile.email || "",
@@ -17,8 +16,7 @@ export function ProfileEditInfo() {
     novaSenha: "",
   });
 
-  // Função para atualizar o estado ao mudar os inputs
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -26,11 +24,9 @@ export function ProfileEditInfo() {
     }));
   };
 
-  // Função para lidar com a submissão do formulário
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    // Validação básica (exemplo)
     if (!formData.senhaAtual) {
       alert("Por favor, insira sua senha atual.");
       return;
@@ -48,14 +44,13 @@ export function ProfileEditInfo() {
       ...(formData.novaSenha && { senha: formData.novaSenha }),
     };
 
-    // Chamar a função do contexto para atualizar o profile
-    // updateProfile(updatedProfile)
-    //   .then(() => {
-    //     alert("Informações atualizadas com sucesso!");
-    //   })
-    //   .catch((error) => {
-    //     alert("Erro ao atualizar informações: " + error.message);
-    //   });
+    const sucesso = await update(formData);
+
+    if (sucesso) {
+      alert("Informações atualizadas com sucesso!");
+    } else {
+      alert("Erro ao atualizar informações. Verifique os dados e tente novamente.");
+    }
   };
 
   return (
@@ -101,17 +96,21 @@ export function ProfileEditInfo() {
         <div>
           <label htmlFor="senhaAtual">Digite sua senha atual</label>
           <InputPassword
+            dark={true}
             name="senhaAtual"
             value={formData.senhaAtual}
             onChange={handleChange}
+            placeholder="Sua senha atual"
           />
         </div>
         <div>
           <label htmlFor="novaSenha">Digite sua nova senha</label>
           <InputPassword
+            dark={true}
             name="novaSenha"
             value={formData.novaSenha}
             onChange={handleChange}
+            placeholder="Sua nova senha"
           />
         </div>
 

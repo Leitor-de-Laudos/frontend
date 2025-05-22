@@ -6,7 +6,7 @@ interface InputPasswordProps extends InputHTMLAttributes<HTMLInputElement> {
   dark?: boolean;
 }
 
-export function InputPassword({ dark = false, ...rest }: InputPasswordProps) {
+export function InputPassword({ dark, ...rest }: InputPasswordProps) {
   const [showPassword, setShowPassword] = useState(false)
 
   function togglePasswordVisibility() {
@@ -14,7 +14,7 @@ export function InputPassword({ dark = false, ...rest }: InputPasswordProps) {
   }
 
   return (
-    <ContainerInputPassword style={{ position: "relative" }}>
+    <ContainerInputPassword style={{ position: "relative" }} $isDark={dark}>
       <input
         {...rest}
         type={showPassword ? "text" : "password"}

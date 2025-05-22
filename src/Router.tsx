@@ -15,6 +15,7 @@ import { HistoricReaderReport } from "./pages/HistoricReaderReport";
 import { Reminder } from "./pages/Reminder";
 import { Archives } from "./pages/Archives";
 import { ReminderForm } from "./pages/ReminderForm";
+import { PrivateRoute } from "./components/PrivateRoute";  // Importando o PrivateRoute
 
 export function Router() {
   return (
@@ -38,6 +39,16 @@ export function Router() {
         <Route path="signin" element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />
       </Route>
+        <Route path="/" element={<DefaultLayout />}>
+            {/* Use PrivateRoute para as rotas protegidas */}
+            <Route index element={<PrivateRoute element={<Home />} path="/" />} />
+            <Route path="/profile" element={<PrivateRoute element={<ProfileInfo />} path="/profile" />} />
+            <Route path="/profile/edit" element={<PrivateRoute element={<ProfileEditInfo />} path="/profile/edit" />} />
+        </Route>
+        <Route path="/auth" element={<AuthLayout />}>
+            <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUp />} />
+        </Route>
     </Routes>
   );
 }

@@ -61,4 +61,3 @@ export const NavButton = styled.button<ButtonProps>`
       background-color: ${theme["purple-dark"]};
     `
   };
-`;
