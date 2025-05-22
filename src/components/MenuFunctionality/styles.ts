@@ -17,7 +17,10 @@ export const ContainerMenu = styled.main`
       font-weight: 500;
     }
     
-    & > button{
+    & > a{
+      text-decoration: none;
+      margin-inline: auto;
+      display: block;
       max-width: 86px;
       background-color: ${({theme}) => theme["purple-medium"]};
       color: ${({theme}) => theme["white-purple"]};

@@ -1,52 +1,65 @@
+import { useContext, useEffect } from "react";
+import { ReminderContext, ReminderTypeResponse } from "@/contexts/ReminderContext";
 import { ContainerHistoric, ContainerReminder } from "./styles";
+import dayjs from "dayjs";
+import 'dayjs/locale/pt-br';
+import { InfoUserContext } from "@/contexts/InfoUserContext";
 
-export function HistoricReminders(){
+dayjs.locale("pt-br");
 
-  return(
+const reverseWeekDaysMap = [
+  "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"
+];
+
+export function HistoricReminders() {
+  const { listReminders, reminderList } = useContext(ReminderContext);
+  const { profile } = useContext(InfoUserContext);
+
+  useEffect(()=>{
+    listReminders(profile.id);
+  }, [profile.id])
+
+  // Lista de 7 dias começando hoje
+  const next7Days = Array.from({ length: 7 }, (_, i) => {
+    const date = dayjs().add(i, 'day');
+    return {
+      date,
+      dayNumber: date.date(),
+      weekDay: reverseWeekDaysMap[date.day()],
+    };
+  });
+
+  function handleRenderTodayReminder( arrayToday: ReminderTypeResponse[]){
+    const algo = arrayToday.map((reminder, index) => (
+      <h2 key={index}>
+        {reminder.nameReminder ?? "Não tem" } <span>{reminder.hourReminder.slice(0,5)}</span>
+      </h2>
+    ))
+
+    return algo;
+  }
+
+  return (
     <ContainerHistoric>
-      
-      <ContainerReminder>
-        <div>
-          <h1>11</h1>
-          <p>SEG</p>
-        </div>
-        <div>
-          <h2>Vitamina D <span>07:00</span></h2>
-          <h2>Mirtazapina <span>22:00</span></h2>
-        </div>
-      </ContainerReminder>
+      {next7Days.map((day, key) => {
+        
+        // Filtrar lembretes que têm o dia da semana atual no weekDayReminder
+        const todaysReminders = reminderList.filter(reminder =>
+          reminder.weekDayReminder.includes(day.weekDay)
+        );
 
-      <ContainerReminder>
-        <div>
-          <h1>12</h1>
-          <p>TER</p>
-        </div>
-        <div>
-          <h2>Vitamina D <span>07:00</span></h2>
-          <h2>Mirtazapina <span>22:00</span></h2>
-        </div>
-      </ContainerReminder>
-
-      <ContainerReminder>
-        <div>
-          <h1>13</h1>
-          <p>QUA</p>
-        </div>
-        <div>
-          <h2>Vitamina D <span>07:00</span></h2>
-          <h2>Mirtazapina <span>22:00</span></h2>
-        </div>
-      </ContainerReminder>
-      <ContainerReminder>
-        <div>
-          <h1>14</h1>
-          <p>QUI</p>
-        </div>
-        <div>
-          <h2>Vitamina D <span>07:00</span></h2>
-          <h2>Mirtazapina <span>22:00</span></h2>
-        </div>
-      </ContainerReminder>
+        return (
+          <ContainerReminder key={day.date.format("YYYY-MM-DD")+key}>
+            <div>
+              <h1>{day.dayNumber}</h1>
+              <p>{day.weekDay.toUpperCase()}</p>
+            </div>
+            <div>
+              {handleRenderTodayReminder(todaysReminders)}
+            </div>
+          </ContainerReminder>
+        );
+      })}
     </ContainerHistoric>
-  )
+  );
 }

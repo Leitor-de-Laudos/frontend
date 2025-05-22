@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { ContainerMenu } from "./styles";
+import { Link } from "react-router-dom";
 
 
 export function MenuFunctionality(){
@@ -7,27 +8,27 @@ export function MenuFunctionality(){
   return(
     <ContainerMenu>
       <div>
-        <button>
+        <Link to="/reader">
           <Icon icon="streamline:scanner" width="54" height="54"/>
-        </button>
+        </Link>
         <p>Leitor de laudos</p>
       </div>
       <div>
-        <button>
+        <Link to="/reader/historic">
           <Icon icon="la:file-medical-alt" width="54" height="54"/>
-        </button>
+        </Link>
         <p>Exames</p>
       </div>
       <div>
-        <button>
+        <Link to="/reminder">
           <Icon icon="solar:jar-of-pills-2-bold" width="54" height="54"/>
-        </button>
+        </Link>
         <p>Medicações</p>
       </div>
       <div>
-        <button>
+        <Link to="/">
           <Icon icon="fluent:desktop-pulse-20-regular" width="54" height="54"/>
-        </button>
+        </Link>
         <p>Consultas</p>
       </div>
     </ContainerMenu>
