@@ -36,12 +36,15 @@ export function ProfileEditInfo() {
       return;
     }
 
+    const senhaParaEnviar = formData.novaSenha.trim() === ""
+    ? formData.senhaAtual
+    : formData.novaSenha;
+
     // Criar objeto com os dados atualizados
     const updatedProfile = {
       nome: formData.nome,
       email: formData.email,
       telefone: formData.telefone,
-      // Inclua a nova senha apenas se ela foi preenchida
       ...(formData.novaSenha && { senha: formData.novaSenha }),
     };
 
