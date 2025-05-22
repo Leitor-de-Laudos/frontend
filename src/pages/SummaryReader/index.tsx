@@ -15,6 +15,20 @@ export function SummaryReader() {
     }
   }, [id]);
 
+  
+  const extractExplanationAndConclusion = (content: string) => { // Função para extrair partes do texto
+    const match = content.match(/\*\*Explicação\*\*(.*?)\*\*Conclusão\*\*(.*)/s);
+    if (!match) return { explanation: content, conclusion: "" };
+
+    const [, explanation, conclusion] = match;
+    return {
+      explanation: explanation.trim(),
+      conclusion: conclusion.trim(),
+    };
+  };
+
+  const { explanation, conclusion } = extractExplanationAndConclusion(readerSpecific?.content || "");
+
   return (
     <SummaryContainer>
       <header>
@@ -27,8 +41,22 @@ export function SummaryReader() {
           <Icon icon="solar:trash-bin-trash-outline" height={16} width={16} />
         </button>
       </header>
+
       <main>
-        <p>{readerSpecific?.content || "Carregando..."}</p>
+        {readerSpecific?.content ? (
+          <>
+            <div>
+              <h2>Explicação</h2>
+              <p>{explanation}</p>
+            </div>
+            <div>
+              <h2>Conclusão</h2>
+              <p>{conclusion}</p>
+            </div>
+          </>
+        ) : (
+          <p>Carregando...</p>
+        )}
       </main>
     </SummaryContainer>
   );

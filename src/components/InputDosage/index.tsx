@@ -1,16 +1,23 @@
-import { InputHTMLAttributes, SelectHTMLAttributes, useState } from "react";
+import { InputHTMLAttributes, SelectHTMLAttributes } from "react";
 import { InputDosageContainer } from "./styles";
 
-
 interface InputDosageProps {
+  dosageValue: number;
+  dosageUnitValue: "mg" | "ml" | "g" | "mcg";
+  onDosageChange: (value: number) => void;
+  onDosageUnitChange: (value: "mg" | "ml" | "g" | "mcg") => void;
   inputProps?: InputHTMLAttributes<HTMLInputElement>;
   selectProps?: SelectHTMLAttributes<HTMLSelectElement>;
 }
 
-export function InputDosage({ inputProps, selectProps }: InputDosageProps) {
-  const [dosage, setDosage] = useState("");
-  const [unit, setUnit] = useState("mg");
-
+export function InputDosage({
+  dosageValue,
+  dosageUnitValue,
+  onDosageChange,
+  onDosageUnitChange,
+  inputProps,
+  selectProps
+}: InputDosageProps) {
   return (
     <InputDosageContainer>
       <label htmlFor="dosMed">Informe a dosagem</label>
@@ -21,12 +28,13 @@ export function InputDosage({ inputProps, selectProps }: InputDosageProps) {
           name="dosMed"
           id="dosMed"
           placeholder="Ex: 500"
-          min={0}
+          min={1}
           step="any"
-          value={dosage}
+          value={dosageValue}
           onChange={(e) => {
-            setDosage(e.target.value);
-            inputProps?.onChange?.(e);
+            const value = Number(e.target.value);
+            onDosageChange(value);
+            inputProps?.onChange?.(e); // se quiser manter o evento adicional
           }}
           {...inputProps}
         />
@@ -34,9 +42,10 @@ export function InputDosage({ inputProps, selectProps }: InputDosageProps) {
         <select
           name="dosUnit"
           id="dosUnit"
-          value={unit}
+          value={dosageUnitValue}
           onChange={(e) => {
-            setUnit(e.target.value);
+            const value = e.target.value as "mg" | "ml" | "g" | "mcg";
+            onDosageUnitChange(value);
             selectProps?.onChange?.(e);
           }}
           {...selectProps}

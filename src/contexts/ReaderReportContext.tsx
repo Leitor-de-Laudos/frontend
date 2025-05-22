@@ -11,13 +11,14 @@ interface ReaderReportInfoTypeResponse {
 }
 
 interface ReaderReportContextType {
-  readerSummary: String;
+  readerSummary: ReaderReportInfoTypeResponse; 
   readerSpecific: ReaderReportInfoTypeResponse;
   readerList: ReaderReportInfoTypeResponse[];
   getReaderList: (userId: string) => Promise<ReaderReportInfoTypeResponse[]>;
   getReaderById: (id: string) => Promise<ReaderReportInfoTypeResponse>;
   sendFile: (file: File, userId: string) => Promise<ReaderReportInfoTypeResponse>;
 }
+
 
 interface ReaderReportProviderProps {
   children: ReactNode;
@@ -30,31 +31,39 @@ export function ReaderReportProvider({ children }: ReaderReportProviderProps) {
   const [readerSpecific, setReaderSpecific] = useState<ReaderReportInfoTypeResponse>({} as ReaderReportInfoTypeResponse)
   const [readerList, setReaderList] = useState<ReaderReportInfoTypeResponse[]>([]);
 
-  async function getReaderList(userId: string) {
+  async function getReaderList(userId: string): Promise<ReaderReportInfoTypeResponse[]> {
     try {
       const response = await apiReader.get<ReaderReportInfoTypeResponse[]>("/api/list", {
         params: { userId },
       });
       setReaderList(response.data);
-
       return response.data;
     } catch (error) {
       console.error("Erro ao buscar lista de relatórios:", error);
       setReaderList([]);
+      return []; 
     }
   }
 
-  async function getReaderById(id: string) {
-    try {
-      const response = await apiReader.get<ReaderReportInfoTypeResponse>(`/api/report/laudo/${id}`);
-      
-      setReaderSpecific(response.data);
-      return response.data;
-    } catch (error) {
-      console.error("Erro ao buscar lista de relatórios:", error);
-      setReaderList([]);
-    }
+
+  async function getReaderById(id: string): Promise<ReaderReportInfoTypeResponse> {
+  try {
+    const response = await apiReader.get<ReaderReportInfoTypeResponse>(`/api/report/laudo/${id}`);
+    setReaderSpecific(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar relatório:", error);
+    // Retorne um objeto vazio com valores padrão válidos
+    return {
+      id: '',
+      content: '',
+      userId: '',
+      createdAt: '',
+      title: ''
+    };
   }
+}
+
 
   async function sendFile(file: File, userId: string) {
     const formData = new FormData();

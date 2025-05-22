@@ -13,6 +13,7 @@ export const ContainerHistoric = styled.section`
 export const ContainerReminder = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   padding: 1rem;
   background-color: ${({theme}) => theme["purple-light"]};
@@ -50,7 +51,7 @@ export const ContainerReminder = styled.div`
   }
 
   & > div:nth-child(2){
-    max-height: 58px;
+    /* max-height: 58px; */
     display: flex;
     flex-direction: column;
     padding: 1rem;

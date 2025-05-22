@@ -5,6 +5,7 @@ import { defaultTheme } from "./styles/themes/deafault"
 import { GlobalStyles } from "./styles/global"
 import { InfoUserProvider } from "./contexts/InfoUserContext"
 import { ReaderReportProvider } from "./contexts/ReaderReportContext"
+import { ReminderProvider } from "./contexts/ReminderContext"
 
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
       <BrowserRouter>
         <InfoUserProvider>
           <ReaderReportProvider>
-            <Router/>
+            <ReminderProvider>
+              <Router/>
+            </ReminderProvider>
           </ReaderReportProvider>
         </InfoUserProvider>
       </BrowserRouter>

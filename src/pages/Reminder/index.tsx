@@ -1,38 +1,20 @@
-import { useState } from "react";
+import { useContext, useEffect } from "react";
 import { ContainerReminder } from "./styles";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { CardReminder } from "@/components/CardReminder";
-
-interface ReminderItem {
-  text: string;
-  time: string;
-}
-
-interface ReminderData {
-  id: number;
-  date: Date;
-  done: boolean;
-  item: ReminderItem;
-}
+import { ReminderContext } from "@/contexts/ReminderContext";
+import { InfoUserContext } from "@/contexts/InfoUserContext";
 
 export function Reminder() {
-  
-  const [reminders, setReminders] = useState<ReminderData[]>([
-    {
-      id: 1,
-      date: new Date(),
-      done: false,
-      item: { text: "Vitamina D\n1 Capsula 125mg", time: "09:00" },
+  const { listReminders, reminderList } = useContext(ReminderContext);
+  const { profile } = useContext(InfoUserContext);
 
-    },
-    {
-      id: 2,
-      date: new Date(),
-      done: false,
-      item: { text: "Consulta | Checkup\nHosp. São Camilo", time: "08:30" },
-    },
-  ]);
+  useEffect(() => {
+    if (profile?.id) {
+      listReminders(profile.id);
+    }
+  }, [profile]);
 
   return (
     <>
@@ -51,15 +33,25 @@ export function Reminder() {
         </header>
       </ContainerReminder>
 
-      {reminders.map((rem) => (
-        <CardReminder
-          key={rem.id}
-          id={rem.id}
-          date={rem.date}
-          done={rem.done}
-          item={rem.item}
-        />
-      ))}
+      {reminderList.length === 0 ? (
+        <p style={{ textAlign: "center" }}>Nenhum lembrete encontrado.</p>
+      ) : (
+        reminderList.map((reminder) => (
+          <CardReminder
+            key={reminder.id}
+            id={reminder.idUser}
+            date={reminder.hourReminder}
+            done={false}
+            item={{
+              text: reminder.nameReminder,
+              quant: reminder.quantReminder,
+              dosage: reminder.dosageReminder,
+              dosageUnit: reminder.dosageUnitReminder,
+              time: reminder.hourReminder,
+            }}
+          />
+        ))
+      )}
     </>
   );
 }

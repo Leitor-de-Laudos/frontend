@@ -61,4 +61,21 @@ export const SummaryContainer = styled.div`
       }
     }
   } 
+
+  & > main{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    gap: 1.5rem;
+
+    & > div{
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      & > p{
+        text-align: justify;
+      }
+    }
+  }
 `
