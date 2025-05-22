@@ -12,7 +12,7 @@ interface ProfileInfoUpdateType {
   email: string;
   telefone: string;
   senhaAtual: string;
-  novaSenha: string;
+  novaSenha?: string | undefined;
 }
 
 interface IssuesContextType {

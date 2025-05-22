@@ -41,15 +41,13 @@ export function HistoricReminders() {
 
   return (
     <ContainerHistoric>
-      {next7Days.map((day, key) => {
-        
-        // Filtrar lembretes que têm o dia da semana atual no weekDayReminder
+      {next7Days.map((day) => {
         const todaysReminders = reminderList.filter(reminder =>
           reminder.weekDayReminder.includes(day.weekDay)
         );
 
         return (
-          <ContainerReminder key={day.date.format("YYYY-MM-DD")+key}>
+          <ContainerReminder key={day.date.format("YYYY-MM-DD")}>
             <div>
               <h1>{day.dayNumber}</h1>
               <p>{day.weekDay.toUpperCase()}</p>

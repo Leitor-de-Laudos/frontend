@@ -60,6 +60,11 @@ export function ReminderProvider({ children }: ReaderReportProviderProps) {
 
   async function listReminders(userId: string) {
     try {
+      
+      if(userId == undefined || userId == null || userId == '') {
+        return;
+      }
+
       const response = await apiReminder.get<ReminderTypeResponse[]>(
         `/api/reminders/user/${userId}`,
         {

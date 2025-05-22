@@ -24,39 +24,42 @@ export function ProfileEditInfo() {
     }));
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.senhaAtual) {
+    if (!formData.senhaAtual.trim()) {
       alert("Por favor, insira sua senha atual.");
       return;
     }
 
-    const senhaParaEnviar = formData.novaSenha.trim() === ""
-    ? formData.senhaAtual
-    : formData.novaSenha;
-
-    // Criar objeto com os dados atualizados
-    const updatedProfile = {
+    const payload = {
       nome: formData.nome,
       email: formData.email,
       telefone: formData.telefone,
-      ...(formData.novaSenha && { senha: formData.novaSenha }),
+      senhaAtual: formData.senhaAtual,
+      ...(formData.novaSenha.trim() && { novaSenha: formData.novaSenha }),
     };
 
-    const sucesso = await update(formData);
+    const sucesso = await update(payload);
 
     if (sucesso) {
       alert("Informações atualizadas com sucesso!");
     } else {
-      alert("Erro ao atualizar informações. Verifique os dados e tente novamente.");
+      alert(
+        "Erro ao atualizar informações. Verifique os dados e tente novamente."
+      );
     }
   };
 
   return (
     <ContainerEditInfo>
       <Link to="/profile">
-        <Icon icon="si:arrow-left-line" width={24} height={24} color="#000000" />
+        <Icon
+          icon="si:arrow-left-line"
+          width={24}
+          height={24}
+          color="#000000"
+        />
         <p>Voltar</p>
       </Link>
 
@@ -68,6 +71,7 @@ export function ProfileEditInfo() {
           <input
             type="text"
             name="nome"
+            id="nome"
             placeholder="Seu Nome"
             value={formData.nome}
             onChange={handleChange}
@@ -78,6 +82,7 @@ export function ProfileEditInfo() {
           <input
             type="email"
             name="email"
+            id="email"
             placeholder="Seu email"
             value={formData.email}
             onChange={handleChange}
@@ -88,6 +93,7 @@ export function ProfileEditInfo() {
           <input
             type="text"
             name="telefone"
+            id="telefone"
             placeholder="Seu telefone"
             value={formData.telefone}
             onChange={handleChange}
@@ -98,6 +104,7 @@ export function ProfileEditInfo() {
           <InputPassword
             dark={true}
             name="senhaAtual"
+            id="senhaAtual"
             value={formData.senhaAtual}
             onChange={handleChange}
             placeholder="Sua senha atual"
@@ -108,6 +115,7 @@ export function ProfileEditInfo() {
           <InputPassword
             dark={true}
             name="novaSenha"
+            id="novaSenha"
             value={formData.novaSenha}
             onChange={handleChange}
             placeholder="Sua nova senha"
