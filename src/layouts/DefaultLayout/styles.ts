@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 
 export const LayoutContainer = styled.div`
-  background-color: ${({ theme }) => theme['white-purple']};
+  background-color: #FAFAFA;
   display: flex;
   flex-direction: column;
   align-items: center;

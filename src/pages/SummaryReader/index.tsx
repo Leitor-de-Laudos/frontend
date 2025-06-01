@@ -1,13 +1,14 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { SummaryContainer } from "./styles";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useContext, useEffect } from "react";
 import { ReaderReportContext } from "@/contexts/ReaderReportContext";
 
 export function SummaryReader() {
-  const { getReaderById, readerSpecific } = useContext(ReaderReportContext);
+  const { getReaderById, readerSpecific, deleteReportReader } = useContext(ReaderReportContext);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (id) {
@@ -15,8 +16,21 @@ export function SummaryReader() {
     }
   }, [id]);
 
-  
-  const extractExplanationAndConclusion = (content: string) => { // Função para extrair partes do texto
+  async function handleDelete() {
+    if (!readerSpecific?.id) return;
+
+    const confirmDelete = window.confirm("Tem certeza que deseja deletar este relatório?");
+    if (!confirmDelete) return;
+
+    try {
+      await deleteReportReader(readerSpecific.id);
+      navigate("/reader/historic");
+    } catch (error) {
+      alert("Erro ao deletar o relatório. Tente novamente.");
+    }
+  }
+
+  const extractExplanationAndConclusion = (content: string) => {
     const match = content.match(/\*\*Explicação\*\*(.*?)\*\*Conclusão\*\*(.*)/s);
     if (!match) return { explanation: content, conclusion: "" };
 
@@ -37,7 +51,7 @@ export function SummaryReader() {
           <span>Voltar</span>
         </Link>
         <h1>Resumo do Laudo</h1>
-        <button type="button">
+        <button type="button" onClick={handleDelete}>
           <Icon icon="solar:trash-bin-trash-outline" height={16} width={16} />
         </button>
       </header>

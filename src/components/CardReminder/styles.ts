@@ -12,6 +12,18 @@ export const CardContainer = styled.section`
   min-width: 380px;
   box-sizing: border-box;
   gap: 0.5rem;
+
+  transition: all 0.2s ease-in-out;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07),
+              0 2px 4px rgba(0, 0, 0, 0.07),
+              0 4px 8px rgba(0, 0, 0, 0.07),
+              0 8px 16px rgba(0, 0, 0, 0.07),
+              0 16px 32px rgba(0, 0, 0, 0.07);
+  
+  &:hover{
+    scale: 1.05;
+  }
 `;
 
 
@@ -19,13 +31,52 @@ export const DataColuna = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  gap: 6px;
 
   width: 100%;
+
+  & > button{
+    outline: none;
+    border: none;
+    background: transparent;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 26px;
+    height: 26px;
+    
+    padding: 4px;
+
+    border-radius: 4px;
+    border: 1px solid rgba(255, 0, 0, 0.7);
+
+    transition: background 0.2s ease-in-out;
+
+    & > svg{
+      height: 22px;
+      width: 22px;
+      color: rgba(255, 0, 0, 0.7);
+    }
+
+    &:hover{
+      background-color: rgba(255, 0, 0, 0.7);
+      scale: 1.05;
+
+      & > svg{
+        height: 22px;
+        width: 22px;
+        color: ${({theme}) => theme.white};
+      }
+    }
+  }
 `
 
 export const CirculoData = styled.div`
-  width: 68px;
-  height: 68px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -36,16 +87,10 @@ export const CirculoData = styled.div`
   background-color: ${({theme}) => theme.purple};
   text-align: center;
 
-  & span {
-    font-size: 1.1rem;
-    font-weight: bold;
-    line-height: 1;
-  }
-
   & small {
-    font-size: 0.75rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    line-height: 1;
+    font-weight: 600;
   }
 `
 

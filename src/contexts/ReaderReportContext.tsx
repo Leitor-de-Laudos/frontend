@@ -17,6 +17,7 @@ interface ReaderReportContextType {
   getReaderList: (userId: string) => Promise<ReaderReportInfoTypeResponse[]>;
   getReaderById: (id: string) => Promise<ReaderReportInfoTypeResponse>;
   sendFile: (file: File, userId: string) => Promise<ReaderReportInfoTypeResponse>;
+  deleteReportReader: (id: string ) => Promise<void>;
 }
 
 
@@ -86,8 +87,20 @@ export function ReaderReportProvider({ children }: ReaderReportProviderProps) {
     }
   }
 
+  async function deleteReportReader(id: string): Promise<void> {
+    try {
+      await apiReader.delete(`/api/scanner/delete/${id}`);
+      
+      
+      setReaderList((prev) => prev.filter((report) => report.id !== id)); // Atualiza a lista 
+    } catch (error) {
+      console.error("Erro ao remover o relatório:", error);
+      throw error;
+    }
+  }
+
   return (
-    <ReaderReportContext.Provider value={{ readerSummary, readerSpecific, readerList, getReaderList, getReaderById, sendFile }}>
+    <ReaderReportContext.Provider value={{ readerSummary, readerSpecific, readerList, getReaderList, getReaderById, sendFile, deleteReportReader }}>
       {children}
     </ReaderReportContext.Provider>
   );

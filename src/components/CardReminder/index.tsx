@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react/dist/iconify.js";
 import {
   CardContainer,
   CirculoData,
@@ -5,6 +6,8 @@ import {
   DataColuna,
   LineItem,
 } from "./styles";
+import { useContext } from "react";
+import { ReminderContext } from "@/contexts/ReminderContext";
 
 interface ReminderItem {
   text: string;
@@ -16,31 +19,46 @@ interface ReminderItem {
 
 interface CardReminderProps {
   id: string;
-  date: string; // também no formato "HH:mm"
+  idUser: string;
+  weekDay: string[]; // também no formato "HH:mm"
+  hourReminder: string;
   done: boolean;
   item: ReminderItem;
 }
 
 export function CardReminder({
-  date,
+  id,
+  idUser,
+  weekDay,
+  hourReminder,
   item,
 }: CardReminderProps) {
 
+  const { deleteReminder } = useContext(ReminderContext)
+
   const now = new Date();
-  const [hours, minutes] = date.split(":").map(Number);
+  const [hours, minutes] = hourReminder.split(":").map(Number);
   now.setHours(hours, minutes, 0, 0);
+
+  async function handleDeleteReminder(){
+    console.log(id);
+
+    const result = await deleteReminder(id, idUser);
+
+    alert(result);
+  }
 
   return (
     <CardContainer>
       <DataColuna>
         <CirculoData>
-          <span>
-            {now.toLocaleString("pt-BR", { day: "2-digit" })}
-          </span>
           <small>
-            {now.toLocaleString("pt-BR", { weekday: "short" }).replace(".", "")}
+            {weekDay[0]}
           </small>
         </CirculoData>
+        <button onClick={handleDeleteReminder}>
+          <Icon icon="ri:delete-bin-6-line" />
+        </button>
       </DataColuna>
 
       <ColunaDetalhes>

@@ -2,7 +2,7 @@ import { createContext, ReactNode, useState } from "react";
 import { apiReminder } from "@/lib/axiosReminder";
 
 export interface ReminderTypeResponse {
-  id: string;
+  idReminder: string;
   idUser: string;
   nameReminder: string;
   quantReminder: string;
@@ -14,6 +14,7 @@ export interface ReminderTypeResponse {
 
 export interface ReminderTypeRequest {
   idUser: string;
+  email: string;
   nameReminder: string;
   quantReminder: string;
   dosageReminder: number;
@@ -26,6 +27,7 @@ export interface ReminderTypeRequest {
 interface ReminderContextType {
   createReminder: (data: ReminderTypeRequest) => Promise<ReminderTypeResponse>;
   listReminders: (userId: string) => Promise<void>;
+  deleteReminder: (id: string, idUser: string) => Promise<String  >;
   reminderList: ReminderTypeResponse[];
 }
 
@@ -39,24 +41,25 @@ export function ReminderProvider({ children }: ReaderReportProviderProps) {
   const [reminderList, setReminderList] = useState<ReminderTypeResponse[]>([]);
 
   async function createReminder(data: ReminderTypeRequest): Promise<ReminderTypeResponse> {
-  try {
-    const response = await apiReminder.post<ReminderTypeResponse>(
-      "/api/reminders",
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    try {
+      console.log('Payload enviado:', data);
 
-    return response.data;
-  } catch (error) {
-    console.error("Erro ao criar lembrete:", error);
-    throw error;
+      const response = await apiReminder.post<ReminderTypeResponse>(
+        "/api/reminders",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao criar lembrete:", error);
+      throw error;
+    }
   }
-}
-
 
   async function listReminders(userId: string) {
     try {
@@ -81,8 +84,33 @@ export function ReminderProvider({ children }: ReaderReportProviderProps) {
     }
   }
 
+   async function deleteReminder(id: string, idUser: string) {
+    try {
+      
+      if(id == undefined || id == null || id == '') {
+        return "Falta o id do lembrete";
+      }
+
+      await apiReminder.delete<void>(
+        `/api/reminders/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      listReminders(idUser);
+
+      return `Lembrete deletado com sucesso. ID: ${id ?? 'sem id'}`;
+    } catch (error) {
+      console.error("Erro ao listar lembretes:", error);
+      throw error;
+    }
+  }
+
   return (
-    <ReminderContext.Provider value={{ createReminder, listReminders, reminderList }}>
+    <ReminderContext.Provider value={{ createReminder, listReminders, reminderList, deleteReminder }}>
       {children}
     </ReminderContext.Provider>
   );

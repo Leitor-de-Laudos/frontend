@@ -21,8 +21,7 @@ export function Reminder() {
       <ContainerReminder>
         <header>
           <Link to="/">
-            <Icon icon="garden:chevron-left-fill-16" height={16} width={16} />
-            <span>Voltar</span>
+            <Icon icon="fluent:arrow-left-16-filled" height={24} width={24} />
           </Link>
           <h1>Lembretes</h1>
           <span>
@@ -37,10 +36,12 @@ export function Reminder() {
         <p style={{ textAlign: "center" }}>Nenhum lembrete encontrado.</p>
       ) : (
         reminderList.map((reminder) => (
-          <CardReminder
-            key={reminder.id}
-            id={reminder.idUser}
-            date={reminder.hourReminder}
+           <CardReminder
+            key={reminder.idReminder}
+            id={reminder.idReminder}
+            idUser={profile.id}
+            hourReminder={reminder.hourReminder}
+            weekDay={reminder.weekDayReminder}
             done={false}
             item={{
               text: reminder.nameReminder,

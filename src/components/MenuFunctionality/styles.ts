@@ -12,6 +12,7 @@ export const ContainerMenu = styled.main`
     text-align: center;
     margin: 0  auto;
 
+    
     & > p {
       margin-top: .5rem;
       font-weight: 500;
@@ -28,6 +29,8 @@ export const ContainerMenu = styled.main`
       border: none;
       padding: 1rem;
       border-radius: 15px;
+
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05), 0 5px 10px 5px rgba(0,0,0,0.08);
     }
   }
 `

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ContainerReminder, ContainerReminderForm } from "./styles";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { InputHour } from "@/components/InputHour";
@@ -9,11 +9,13 @@ import { ReminderContext, ReminderTypeRequest } from "@/contexts/ReminderContext
 import { InfoUserContext } from "@/contexts/InfoUserContext";
 
 export function ReminderForm() {
+  const navigate = useNavigate();
   const { createReminder } = useContext(ReminderContext);
   const { profile } = useContext(InfoUserContext);
 
   const [reminderData, setReminderData] = useState<ReminderTypeRequest>({
     idUser: "",
+    email: "",
     nameReminder: "",
     quantReminder: "",
     dosageReminder: 1,
@@ -31,25 +33,28 @@ export function ReminderForm() {
   }
 
   async function handleSubmit(e: React.FormEvent) {
-  e.preventDefault();
+    e.preventDefault();
 
-  const finalReminder = {
-    ...reminderData,
-    idUser: profile.id,
-  };
+    const finalReminder = {
+      ...reminderData,
+      idUser: profile.id,
+      email: profile.email,
+    };
 
-  console.log(finalReminder); 
+    console.log(finalReminder); 
 
-  try {
-    await createReminder(finalReminder);
-    alert("Lembrete criado com sucesso!");
+    try {
+      await createReminder(finalReminder);
+      alert("Lembrete criado com sucesso!");
 
-    setReminderData({} as ReminderTypeRequest);
-    
-  } catch (err) {
-    console.error(err);
-    alert("Erro ao criar lembrete.");
-  }
+      setReminderData({} as ReminderTypeRequest);
+
+      navigate("/reminder");
+      
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao criar lembrete.");
+    }
 }
 
   return (
