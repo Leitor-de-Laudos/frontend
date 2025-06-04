@@ -45,10 +45,9 @@ export const NavButton = styled.button<ButtonProps>`
     $isActive &&
     css`
       background-color: ${theme["purple-dark"]};
-      transform: scale(1.05); // pequeno destaque sutil
-    `
-  };
-  
+      transform: scale(1.05); /* pequeno destaque sutil */
+    `}
+
   ${({ $isMain, theme }) =>
     $isMain &&
     css`
@@ -59,5 +58,5 @@ export const NavButton = styled.button<ButtonProps>`
       align-items: center;
       justify-content: center;
       background-color: ${theme["purple-dark"]};
-    `
-  };
+    `}
+`;
