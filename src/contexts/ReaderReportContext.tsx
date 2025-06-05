@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import { apiReader } from "@/lib/axiosReader";
-
+import axios from "axios";
 
 interface ReaderReportInfoTypeResponse {
   id: string;
@@ -25,6 +24,8 @@ interface ReaderReportProviderProps {
   children: ReactNode;
 }
 
+const urlReader = "http://4cb1-2804-d4b-7a9f-4900-6d55-8c5f-377d-14c1.ngrok-free.app"
+
 export const ReaderReportContext = createContext({} as ReaderReportContextType);
 
 export function ReaderReportProvider({ children }: ReaderReportProviderProps) {
@@ -34,7 +35,7 @@ export function ReaderReportProvider({ children }: ReaderReportProviderProps) {
 
   async function getReaderList(userId: string): Promise<ReaderReportInfoTypeResponse[]> {
     try {
-      const response = await apiReader.get<ReaderReportInfoTypeResponse[]>("/api/list", {
+      const response = await axios.get<ReaderReportInfoTypeResponse[]>(urlReader+"/api/list", {
         params: { userId },
       });
       setReaderList(response.data);
@@ -49,7 +50,7 @@ export function ReaderReportProvider({ children }: ReaderReportProviderProps) {
 
   async function getReaderById(id: string): Promise<ReaderReportInfoTypeResponse> {
     try {
-      const response = await apiReader.get<ReaderReportInfoTypeResponse>(`/api/report/laudo/${id}`);
+      const response = await axios.get<ReaderReportInfoTypeResponse>(urlReader+`/api/report/laudo/${id}`);
       setReaderSpecific(response.data);
       return response.data;
     } catch (error) {
@@ -72,7 +73,7 @@ export function ReaderReportProvider({ children }: ReaderReportProviderProps) {
     formData.append("userId", userId);
 
     try {
-      const response = await apiReader.post<ReaderReportInfoTypeResponse>("/api/scanner", formData, {
+      const response = await axios.post<ReaderReportInfoTypeResponse>(urlReader+"/api/scanner", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -89,7 +90,7 @@ export function ReaderReportProvider({ children }: ReaderReportProviderProps) {
 
   async function deleteReportReader(id: string): Promise<void> {
     try {
-      await apiReader.delete(`/api/scanner/delete/${id}`);
+      await axios.delete(urlReader+`/api/scanner/delete/${id}`);
       
       
       setReaderList((prev) => prev.filter((report) => report.id !== id)); // Atualiza a lista 
