@@ -24,7 +24,7 @@ interface ReaderReportProviderProps {
   children: ReactNode;
 }
 
-const urlReader = "http://4cb1-2804-d4b-7a9f-4900-6d55-8c5f-377d-14c1.ngrok-free.app"
+const urlReader = "https://4cb1-2804-d4b-7a9f-4900-6d55-8c5f-377d-14c1.ngrok-free.app"
 
 export const ReaderReportContext = createContext({} as ReaderReportContextType);
 
