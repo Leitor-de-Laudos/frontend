@@ -16,6 +16,8 @@ export function HistoricReaderReport() {
     }
   }, [profile.id]);
 
+  const isArray = Array.isArray(readerList);
+
   return (
     <HistoricContainer>
       <header>
@@ -31,19 +33,25 @@ export function HistoricReaderReport() {
         </span>
       </header>
 
-      {readerList.map((el) => (
-        <ExamContainer
-          key={el.id}
-          id={el.id}
-          date={new Date(el.createdAt).toLocaleDateString("pt-BR", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })}
-          name={el.title}
-          nameUser={profile.nome}
-        />
-      ))}
+      {!isArray ? (
+        <p style={{ padding: "1rem", color: "gray" }}>Nenhum exame encontrado ou erro ao carregar.</p>
+      ) : readerList.length === 0 ? (
+        <p style={{ padding: "1rem", color: "gray" }}>Nenhum exame disponível.</p>
+      ) : (
+        readerList.map((el) => (
+          <ExamContainer
+            key={el.id}
+            id={el.id}
+            date={new Date(el.createdAt).toLocaleDateString("pt-BR", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+            name={el.title}
+            nameUser={profile.nome}
+          />
+        ))
+      )}
     </HistoricContainer>
   );
 }

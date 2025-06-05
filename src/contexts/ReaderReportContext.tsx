@@ -48,22 +48,22 @@ export function ReaderReportProvider({ children }: ReaderReportProviderProps) {
 
 
   async function getReaderById(id: string): Promise<ReaderReportInfoTypeResponse> {
-  try {
-    const response = await apiReader.get<ReaderReportInfoTypeResponse>(`/api/report/laudo/${id}`);
-    setReaderSpecific(response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Erro ao buscar relatório:", error);
-    // Retorne um objeto vazio com valores padrão válidos
-    return {
-      id: '',
-      content: '',
-      userId: '',
-      createdAt: '',
-      title: ''
-    };
+    try {
+      const response = await apiReader.get<ReaderReportInfoTypeResponse>(`/api/report/laudo/${id}`);
+      setReaderSpecific(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar relatório:", error);
+      // Retorne um objeto vazio com valores padrão válidos
+      return {
+        id: '',
+        content: '',
+        userId: '',
+        createdAt: '',
+        title: ''
+      };
+    }
   }
-}
 
 
   async function sendFile(file: File, userId: string) {
